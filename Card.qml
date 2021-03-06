@@ -8,10 +8,13 @@ Item {
     property int elevation: 1
 
     Rectangle{
-        anchors.leftMargin: 8
-        anchors.rightMargin: 8
-        anchors.fill: parent
-        color: "white"
+        anchors{
+            fill:parent
+            leftMargin: 8
+            rightMargin: 8
+        }
+
+        color: model.colorPreference
         radius: 4
         layer.enabled:cardNote.elevation>0
         layer.effect: ElevationEffect{
