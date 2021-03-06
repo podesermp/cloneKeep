@@ -10,6 +10,7 @@ QString Model::name(){
     return m_name;
 }
 
+
 void Model::setName(QString name){
     qDebug()<< "setName()[Model]: " << name;
     if(m_name == name){

@@ -3,6 +3,7 @@ import QtQuick.Controls.Material 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Controls.Material.impl 2.12
 
+
 Item {
     id: cardNote
     property int elevation: 1

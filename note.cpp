@@ -11,6 +11,7 @@ Note::Note(const QString &title, const QString &creator,
 
     this->title = title;
 
+
     //Pega so uma parte do conteudo completo
 //    for(int i = 0; i < 15; i++){
 //        this->description[i] = content[i];

@@ -62,6 +62,7 @@ void NoteListModel::insertNote(QString title, QString creator,
         endInsertRows();
 }
 
+
 void NoteListModel::deleteNote(int index){
     beginRemoveRows(QModelIndex(), index, index);
     m_notes.removeAt(index);

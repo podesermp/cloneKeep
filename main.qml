@@ -20,7 +20,6 @@ Window {
             notes.deleteNote(note.index)
         }
     }
-
     Dialog{
 
         id: addNoteDialog
@@ -35,7 +34,6 @@ Window {
             creatorField.clear();
             emailField.clear();
         }
-
         ColumnLayout{
             spacing: 15
             width: parent.height
