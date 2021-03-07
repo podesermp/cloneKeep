@@ -57,36 +57,8 @@ void NoteDatabaseModel::newRow(QString title, QString creator, QString content, 
     insertQuery.bindValue(":description", n_note->description);
     insertQuery.bindValue(":colorPreference", n_note->colorPreference);
     insertQuery.bindValue(":lastModify", n_note->lastModify);
-
-    qDebug() << lastError();
-    qDebug() << "exec: " <<insertQuery.exec();
-
+    insertQuery.exec();
     select();
-
-//    insertQuery.prepare("insert into nota(id, title, creator, content, email, description, colorPreference, lastModify)"
-//                        "VALUES (:id, :title, :creator, :content, :email, :description, :colorPreference, :lastModify)"
-//                        );
-//    insertQuery.bindValue(":id", id);
-//    insertQuery.bindValue(":title", n_nota.title);
-//    insertQuery.bindValue(":creator", n_nota.creator);
-//    insertQuery.bindValue(":content", n_nota.content);
-//    insertQuery.bindValue(":email", n_nota.email);
-//    insertQuery.bindValue(":description", n_nota.title);
-//    insertQuery.bindValue(":colorPreference", n_nota.colorPreference);
-//    insertQuery.bindValue(":lastModify", n_nota.lastModify);
-
-
-//    insertQuery.prepare("insert into nota(id, title, creator, content, email)"
-//                        "VALUES (:id, :title, :creator, :content, :email)"
-//                        );
-//    insertQuery.bindValue(":id", id);
-//    insertQuery.bindValue(":title", title);
-//    insertQuery.bindValue(":creator", creator);
-//    insertQuery.bindValue(":content", content);
-//    insertQuery.bindValue(":email", email);
-
-//    insertQuery.exec();
-//    select();
 }
 
 void NoteDatabaseModel::deleteRow(QString id){

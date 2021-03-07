@@ -22,10 +22,7 @@ bool Database::openDatabase(){
     bool needCreate = !dataDir.exists(m_db.databaseName());
     bool ok = m_db.open();
 
-    qDebug()<<m_db.isValid() <<m_db.isDriverAvailable("QSQLITE") << m_db.isOpen();
-
     if(ok && needCreate){
-        qDebug() <<"creating";
         QString path = ":/create_db.sql";
         runSqlScript(m_db, path);
     }
@@ -52,10 +49,8 @@ bool Database::runSqlScript(QSqlDatabase db, QString path){
                     continue;
                 }
                 if(db.exec(query.trimmed()).lastError().isValid()){
-                    qDebug() << query <<" fail";
                     allQueriesOk = false;
                 }else{
-                    qDebug() << query <<" sucessful";
                     allQueriesOk = true;
                 }
             }

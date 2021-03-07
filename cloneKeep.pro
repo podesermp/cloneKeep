@@ -12,8 +12,7 @@ SOURCES += \
         main.cpp \
         model.cpp \
         note.cpp \
-        notedatabasemodel.cpp \
-        notelistmodel.cpp
+        notedatabasemodel.cpp
 
 RESOURCES += qml.qrc \
     sql.qrc
@@ -34,5 +33,4 @@ HEADERS += \
     database.h \
     model.h \
     note.h \
-    notedatabasemodel.h \
-    notelistmodel.h
+    notedatabasemodel.h

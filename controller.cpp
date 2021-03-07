@@ -10,6 +10,4 @@ void Controller::setModel(Model *model){
 }
 
 void Controller::mudarNome(QString nome){
-    qDebug()<< "Mudar nome[Controller] = " << nome;
-    //m_model->setName(nome);
 }

@@ -84,32 +84,6 @@ Window {
             }
         }
     }
-
-    Dialog{
-        id: opcoesDialog
-
-        x: parent.width/2 - addNoteDialog.width/2
-        y: parent.height/2 - addNoteDialog.height/2
-
-        standardButtons: Dialog.Ok | Dialog.Cancel
-        GridLayout{
-            columns: 3
-            rows: 3
-            Button{
-                text:"azulzim"
-                onPressed: {
-                    nota.colorPreference = "#8ecae6"
-                }
-            }
-            Button{
-                text:"verdim"
-            }
-        }
-    }
-
-    NoteListModel{
-        id: notes
-    }
     NoteDatabaseModel{
         id: dbNotes
     }
@@ -118,7 +92,6 @@ Window {
         anchors.fill: parent
         spacing: 8
         header: Card{
-            //color: "#234780"
             height: 200
             width: parent.width
             Text{
@@ -178,31 +151,27 @@ Window {
                         anchors.left: parent.left
                         Layout.fillWidth: true
                         color: "black"
-                        text: model.description
+                        text: model.content
                         font.pixelSize: 15
                         wrapMode: Text.WordWrap
                     }
-                    Text{
-                        anchors.left: parent.left
-                        Layout.fillWidth: true
-                        color: "black"
-                        text: model.creator
-                        font.pixelSize: 10
-                        wrapMode: Text.WordWrap
-                    }
-                }
-                Button{
-                    Image {
-                        anchors.fill: parent
-                        fillMode: Image.PreserveAspectFit
-                        anchors.margins: 8
-                        source: "qrc:/icons/color.png"
-                    }
-                    onPressed:{
-                        opcoesDialog.nota = {
-                            colorPreference: model.colorPreference
+                    ColumnLayout{
+                        Text{
+                            anchors.left: parent.left
+                            Layout.fillWidth: true
+                            color: "black"
+                            text: model.creator
+                            font.pixelSize: 10
+                            wrapMode: Text.WordWrap
                         }
-                        opcoesDialog.open()
+                        Text{
+                            anchors.left: parent.left
+                            Layout.fillWidth: true
+                            color: "black"
+                            text: model.lastModify
+                            font.pixelSize: 10
+                            wrapMode: Text.WordWrap
+                        }
                     }
                 }
                 Button{
@@ -215,7 +184,8 @@ Window {
                     onPressed:{
                         confirmaAcao.nota = {
                             title: model.title,
-                            id: model.id
+                            id: model.id,
+                            colorPreference: model.colorPreference
                         }
                         confirmaAcao.open()
                     }

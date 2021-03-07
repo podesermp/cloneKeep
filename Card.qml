@@ -13,7 +13,7 @@ Item {
             leftMargin: 8
             rightMargin: 8
         }
-        color: nota.colorPreference
+        color: confirmaAcao.nota.colorPreference
         radius: 4
         layer.enabled:cardNote.elevation>0
         layer.effect: ElevationEffect{

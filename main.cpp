@@ -19,7 +19,6 @@ int main(int argc, char *argv[])
 
     Database *database = new Database();
     database->openDatabase();
-    qDebug() << "Banco conectou? " << database->isConnected();
 
     Model *model = new Model(nullptr, database);
     Controller *controller = new Controller();
