@@ -3,5 +3,8 @@
         <file>main.qml</file>
         <file>Card.qml</file>
         <file>ConfirmaAcao.qml</file>
+        <file>icons/delete.png</file>
+        <file>icons/addNote.png</file>
+        <file>icons/color.png</file>
     </qresource>
 </RCC>

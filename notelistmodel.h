@@ -9,7 +9,6 @@
 class NoteListModel:public QAbstractListModel{
     Q_OBJECT
 
-
 public:
     enum Roles{
         Title = Qt::UserRole + 1,

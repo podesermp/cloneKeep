@@ -11,23 +11,23 @@ Window {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Note Klone")
+    title: qsTr("Note Teste")
     color: "#fafafa"
+
 
     ConfirmaAcao {
         id: confirmaAcao
         onAccepted: {
-            notes.deleteNote(note.index)
+            dbNotes.deleteRow(nota.id)
         }
     }
     Dialog{
-
         id: addNoteDialog
         x: parent.width/2 - addNoteDialog.width/2
         y: parent.height/2 - addNoteDialog.height/2
         height: parent.width/2
         width: parent.height
-
+        title: "Nova nota"
         function clearFields(){
             titleField.clear();
             contentField.clear();
@@ -76,7 +76,7 @@ Window {
                     Material.foreground: "#146D99"
                     enabled: !titleField.text == "" && !creatorField.text == "" && !emailField.text == ""
                     onPressed: {
-                        notes.insertNote(titleField.text, creatorField.text, contentField.text, emailField.text)
+                        dbNotes.newRow(titleField.text, creatorField.text, contentField.text, emailField.text)
                         addNoteDialog.clearFields()
                         addNoteDialog.close()
                     }
@@ -98,63 +98,33 @@ Window {
             Button{
                 text:"azulzim"
                 onPressed: {
-                    notes.ColorPreference = "#8ecae6"
-                    print(notes.ColorPreference)
+                    nota.colorPreference = "#8ecae6"
                 }
             }
             Button{
                 text:"verdim"
-            }
-            Button{
-                text:"amarelo"
-                onPressed: {
-                    notes.ColorPreference = "#ccd5ae"
-                    print(notes.ColorPreference)
-                }
-            }
-            Button{
-                text:"marromzim"
-                onPressed: {
-                    notes.ColorPreference = "#e09f3e"
-                    print(notes.ColorPreference)
-                }
-            }
-            Button{
-                text:"laranja"
-                onPressed: {
-                    notes.ColorPreference = "#ff7b00"
-                    print(notes.ColorPreference)
-                }
-            }
-            Button{
-                text:"lilas"
-                onPressed: {
-                    notes.ColorPreference = "#c77dff"
-                    print(notes.ColorPreference)
-                }
             }
         }
     }
 
     NoteListModel{
         id: notes
-        Component.onCompleted:{
-            //            notes.addNotes()
-            //notes.insertNote("teste", "teste", "teste", "teste", "teste", "teste", "#E2D4B7")
-        }
+    }
+    NoteDatabaseModel{
+        id: dbNotes
     }
 
     ListView{
         anchors.fill: parent
         spacing: 8
-        header: Rectangle{
-            color: "#234780"
+        header: Card{
+            //color: "#234780"
             height: 200
             width: parent.width
             Text{
                 anchors.fill: parent
                 text: "Bloco de notas"
-                color: "white"
+                color: "#234780"
                 font.pixelSize: 50
                 font.bold: true
                 horizontalAlignment: Text.AlignHCenter
@@ -168,14 +138,20 @@ Window {
                     rightMargin: 16
                     bottomMargin: 16
                 }
-                text: "+Nota"
+                Image {
+                    anchors.fill: parent
+                    fillMode: Image.PreserveAspectFit
+                    anchors.margins: 8
+                    source: "qrc:/icons/addNote.png"
+                }
                 onPressed:{
                     addNoteDialog.open();
                 }
             }
         }
-        model: notes
+        model: dbNotes
         delegate: Card{
+            id: cardNote
             height: 100
             width: parent.width
             RowLayout{
@@ -206,53 +182,40 @@ Window {
                         font.pixelSize: 15
                         wrapMode: Text.WordWrap
                     }
-                    RowLayout{
-                        Text{
-                            anchors{
-                                left: parent.left
-                                bottom: parent.bottom
-                            }
-                            Layout.fillWidth: true
-                            color: "black"
-                            text: model.date
-                            font.pixelSize: 8
-                            font.italic: true
-                            wrapMode: Text.WordWrap
-                        }
-                        Text{
-                            anchors{
-                                bottom: parent.bottom
-                                right: parent.right
-                            }
-
-                            Layout.fillWidth: true
-                            color: "black"
-                            text: model.creator
-                            font.pixelSize: 8
-                            font.italic: true
-                            wrapMode: Text.WordWrap
-                        }
+                    Text{
+                        anchors.left: parent.left
+                        Layout.fillWidth: true
+                        color: "black"
+                        text: model.creator
+                        font.pixelSize: 10
+                        wrapMode: Text.WordWrap
                     }
                 }
                 Button{
-                    text: "Cor"
+                    Image {
+                        anchors.fill: parent
+                        fillMode: Image.PreserveAspectFit
+                        anchors.margins: 8
+                        source: "qrc:/icons/color.png"
+                    }
                     onPressed:{
+                        opcoesDialog.nota = {
+                            colorPreference: model.colorPreference
+                        }
                         opcoesDialog.open()
                     }
                 }
-
                 Button{
-                    text: "Modificar"
-                    onPressed:{
-                        print("Modificar")
+                    Image {
+                        anchors.fill: parent
+                        fillMode: Image.PreserveAspectFit
+                        anchors.margins: 8
+                        source: "qrc:/icons/delete.png"
                     }
-                }
-                Button{
-                    text: "Deletar"
                     onPressed:{
-                        confirmaAcao.note = {
+                        confirmaAcao.nota = {
                             title: model.title,
-                            index: index
+                            id: model.id
                         }
                         confirmaAcao.open()
                     }

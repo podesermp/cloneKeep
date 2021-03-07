@@ -14,5 +14,5 @@ public:
 private:
     Model *m_model;
 };
-//
+
 #endif // CONTROLLER_H

@@ -30,7 +30,7 @@ QVariant NoteListModel::data(const QModelIndex &index, int role) const{
         return m_notes.at(index.row()).email;
         break;
     case Date:
-        return m_notes.at(index.row()).date;
+        return m_notes.at(index.row()).lastModify;
         break;
     case ColorPreference:
         return m_notes.at(index.row()).colorPreference;
@@ -61,7 +61,6 @@ void NoteListModel::insertNote(QString title, QString creator,
         m_notes.append(Note(title, creator, content, email));
         endInsertRows();
 }
-
 
 void NoteListModel::deleteNote(int index){
     beginRemoveRows(QModelIndex(), index, index);

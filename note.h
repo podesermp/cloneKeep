@@ -6,17 +6,15 @@
 class Note{
 public:
     Note();
-    Note(const QString &title, const QString &creator,
-         const QString &content, const QString &email);
+    Note(const QString &title, const QString &creator, const QString &content, const QString &email);
 
     QString title;
     QString description;
     QString creator;
     QString content;
     QString email;
-    QString date;
+    QString lastModify;
     QString colorPreference;
 };
 
 #endif // NOTE_H
-

@@ -1,23 +1,43 @@
 #include "model.h"
 #include <QDebug>
-
-Model::Model(QObject *parent){
+#include <QSqlQuery>
+Model::Model(QObject *parent, Database *database): m_database(database){
 
 }
 
 QString Model::name(){
-    qDebug()<< "name()[Model] ";
+
+    if(m_name == "" || m_name.isNull()){
+        QSqlQuery query(m_database->database());
+        query.prepare("SELECT * FROM dev academy");
+        if(query.exec() && query.first()){
+            m_name = query.value("nome").toString();
+        }
+    }
     return m_name;
 }
 
-
-void Model::setName(QString name){
-    qDebug()<< "setName()[Model]: " << name;
-    if(m_name == name){
-        qDebug()<< "Mesmo nome[Model]" << name;
-        return ;
+QString Model::id(){
+    if(m_id == "" || m_id.isNull()){
+        QSqlQuery query(m_database->database());
+        query.prepare("SELECT * FROM dev academy");
+        if(query.exec() && query.first()){
+            m_id = query.value("id").toString();
+        }
     }
-    m_name = name;
-    emit nameChanged(m_name);
-    qDebug()<< "emitiu signal nameChanged[Model]";
+    return m_id;
+}
+
+void Model::setName(QString name, QString id){
+    if(m_name != name){
+        QSqlQuery query(m_database->database());
+        query.prepare("UPDATE dev academy SET nome = :name WHERE id = :id");
+        query.bindValue(":id", id);
+        query.bindValue(":nome", name);
+
+        if(query.exec()){
+            m_name = name;
+            emit nameChanged(m_name);
+        }
+    }
 }

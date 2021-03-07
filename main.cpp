@@ -1,10 +1,10 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QDebug>
 #include "model.h"
 #include "controller.h"
-
-
+#include "database.h"
 
 
 int main(int argc, char *argv[])
@@ -17,15 +17,16 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    Model *model = new Model();
+    Database *database = new Database();
+    database->openDatabase();
+    qDebug() << "Banco conectou? " << database->isConnected();
+
+    Model *model = new Model(nullptr, database);
     Controller *controller = new Controller();
     controller->setModel(model);
 
     engine.rootContext()->setContextProperty("myModel", model);
     engine.rootContext()->setContextProperty("myController", controller);
-
-
-
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
